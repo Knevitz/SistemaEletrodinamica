@@ -1,0 +1,307 @@
+.link-vermelho {
+  color: #d40000 !important;
+  text-decoration: none !important;
+}
+
+.link-vermelho:hover {
+  text-decoration: underline !important;
+}
+
+/* NAVBAR personalizada */
+.navbar.navbar-expand-lg {
+  background-color: #d40000 !important;
+  color: #ffffff !important;
+}
+
+/* Link ativo */
+.nav-link.active {
+  background-color: #ffffff !important;
+  color: #d40000 !important;
+  margin: 2px !important;
+}
+
+/* Links da navbar */
+.nav-link {
+  color: #ffffff !important;
+  padding: 10px 15px !important;
+  transition: background-color 0.3s ease !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Hover nos links */
+.nav-link:hover {
+  background-color: #ffffff !important;
+  color: #d40000 !important;
+}
+
+/* Itens do dropdown */
+.dropdown-item {
+  color: #000 !important;
+}
+
+.dropdown-item.active {
+  background-color: #d40000 !important;
+  color: #ffffff !important;
+}
+
+.dropdown-item:hover {
+  background-color: #808080 !important;
+  color: #ffffff !important;
+}
+
+/* Botão de pesquisa */
+.btn-pesquisar {
+  background-color: #d40000 !important;
+  color: white !important;
+  border: solid 1px #ffffff !important;
+  border-radius: 15px !important;
+  padding: 5px 15px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.btn-pesquisar:hover {
+  background-color: #ffffff !important;
+  color: #d40000 !important;
+  border: solid 1px #ffffff !important;
+}
+
+/* Input de pesquisa */
+.form-control {
+  border-radius: 10px !important;
+  padding: 10px 15px !important;
+}
+
+/* Estilo do botão danger, se usado em outro ponto */
+.btn-danger {
+  background-color: #d40000 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 10px 15px !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.btn-danger:hover {
+  background-color: #d40000 !important;
+}
+
+/* Classe utilitária do Bootstrap sobrescrita */
+.bg-primary {
+  background-color: #d40000 !important;
+}
+
+/* Remove the outline (blue shadow) when the input is focused */
+.form-control:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.navbar-logo {
+  height: 50px !important;
+}
+
+/* Faz o conteúdo crescer e empurra o footer para o fundo */
+.app-content {
+  flex: 1 !important;
+}
+
+/* CardComp.css */
+.card-img-top {
+  height: 200px !important;
+  width: 100% !important;
+  object-fit: contain !important;
+  padding: 10px !important;
+  transition: filter 0.3s ease; /* Transição da cor */
+}
+.card:hover .card-img-top {
+  filter: grayscale(0%);
+}
+.card {
+  transition: all 0.3s ease !important;
+  border: 1px solid #000000 !important;
+  min-width: 400px;
+  height: auto;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px #000000 !important;
+  transform: translateY(-15px) !important;
+}
+.card:hover {
+  filter: grayscale(
+    0%
+  ) !important; /* Faz o card inteiro (imagem + conteúdo) ter efeito de cor */
+}
+.card:hover {
+  transform: translateY(-15px) !important;
+}
+.navbar-nav .nav-item.active > .nav-link.dropdown-toggle {
+  background-color: white !important;
+  color: #d40000 !important;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+/* Garante que a aplicação ocupe 100% da altura da tela */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.card-title {
+  white-space: normal; /* Permite quebra de linha */
+  word-break: keep-all; /* Nunca quebra uma palavra ao meio */
+  overflow-wrap: break-word; /* Quebra só entre palavras longas */
+  hyphens: none; /* Evita hífens */
+  font-size: clamp(14px, 2.5vw, 23px); /* Ajusta o tamanho conforme o espaço */
+  text-align: center;
+}
+
+.card-text {
+  max-height: none; /* Remove a limitação de altura */
+  overflow: visible; /* Exibe todo o conteúdo */
+  text-overflow: unset; /* Remove as reticências */
+}
+
+::selection {
+  background: #d40000;
+  color: white;
+}
+
+::-moz-selection {
+  background: #d40000;
+  color: white;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+.grayscale-effect {
+  filter: grayscale(100%);
+}
+
+.grayscale-effect:hover {
+  filter: grayscale(0%);
+}
+
+.img-hover-bw {
+  filter: grayscale(100%);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.img-hover-bw:hover {
+  filter: grayscale(0%);
+}
+
+/* Definir cor e sublinhado no hover */
+.text-footer a:hover {
+  text-decoration: underline !important; /* Adiciona sublinhado ao passar o mouse */
+}
+.custom-vermelho {
+  background-color: #d40000 !important;
+  color: white !important;
+  border: solid !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  border-radius: var(--bs-border-radius-lg) !important;
+  padding: 10px 20px !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.custom-vermelho:hover {
+  background-color: #810000 !important;
+  color: white !important;
+}
+
+/* Torna a borda vermelha de todos os inputs */
+.form-control {
+  border: 1px solid #d40000 !important; /* Vermelho padrão Bootstrap */
+}
+
+.form-control:focus {
+  border-color: #d40000 !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 0, 0, 0.25) !important;
+}
+
+/* Para textarea também */
+textarea.form-control {
+  border-color: #d40000 !important;
+}
+/* Altera a bolinha quando marcada */
+.form-check-input:checked {
+  background-color: #d40000 !important;
+  border-color: #d40000 !important;
+}
+
+/* Altera a borda da bolinha desmarcada */
+.form-check-input {
+  border-color: #d40000 !important;
+}
+
+.radio-container :focus {
+  box-shadow: none !important;
+  border-color: #ffffff00;
+}
+.btn-whatsapp {
+  text-decoration: none !important;
+}
+.btn-whatsapp:hover {
+  background-color: #105032;
+}
+
+.imagem-com-texto {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  color: white;
+}
+
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.img-overlay-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-tamanho-unico {
+  width: 275px;
+  height: 267px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
