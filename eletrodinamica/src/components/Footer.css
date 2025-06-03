@@ -1,0 +1,5 @@
+/* Definir cor dos links */
+.text-footer a {
+  color: #ff4d4d !important;
+  text-decoration: none !important; /* Remover sublinhado, caso queira */
+}

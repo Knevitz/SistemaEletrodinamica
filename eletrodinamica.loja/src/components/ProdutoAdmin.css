@@ -1,0 +1,34 @@
+.ed-danger {
+  color: #fff !important;
+  background-color: #dc3545 !important;
+  border: 1px solid #dc3545 !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  border-radius: 0.25rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out !important;
+}
+
+.ed-danger:hover,
+.ed-danger:focus {
+  background-color: #c82333 !important;
+  border-color: #bd2130 !important;
+  outline: none !important;
+}
+
+.ed-danger:active {
+  background-color: #bd2130 !important;
+  border-color: #a71d2a !important;
+  box-shadow: none !important;
+}
+
+.ed-danger:disabled,
+.ed-danger.disabled {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  opacity: 0.65 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}

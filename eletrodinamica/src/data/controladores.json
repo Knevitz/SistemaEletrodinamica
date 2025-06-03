@@ -1,0 +1,236 @@
+[
+  {
+    "slug": "RELÉS_DE_ESTADO_SÓLIDO",
+    "titulo": "RELÉS DE ESTADO SÓLIDO E VARIADORES DE POTÊNCIA",
+    "imagem": "relesIndustriais",
+    "indicacao": {
+      "titulo": "Indicação de uso:",
+      "descricao": " Acionamento de resistências para aquecimento de canhão de injetoras, extrusoras e máquinas industriais diversas (fornos, estufas, reativadores). Modelos padronizados com gabinete injetado em material termoplástico ABS V0 auto extinguível, 45 mm de largura, 59 mm de altura, com espaçamento entre furos de 48 mm, para fixação sobre dissipador de calor."
+    },
+    "manualTitulo": "Veja abaixo o manual do Relé de Estado Sólido Eletrodinâmica (SSR E) e o manual do Controle por ângulo de fase (DIMMER):",
+    "manualPdfKey": "manualSSR",
+    "manualPdfTitulo": "Manual SSR E",
+    "manualPdf1Key": "manualDIMMER",
+    "manualPdf1Titulo": "Manual DIMMER",
+    "especificacoes": [
+      [
+        "Modelo",
+        "Comando A1, A2",
+        "Faixa de tensão aceitável na carga",
+        "Corrente máxima de carga",
+        "Código"
+      ],
+      [
+        "SSRE 40 01",
+        "4 a 32 VCC ou VCA 60 Hz",
+        "90 a 240 VCA 60 Hz",
+        "40 A carga puramente resistiva",
+        "1034"
+      ],
+      [
+        "SSRE 40 02",
+        "90 a 240 VCA 60 Hz",
+        "90 a 240 VCA 60 Hz",
+        "40 A carga puramente resistiva",
+        "1053"
+      ],
+      [
+        "VSSE 40 01",
+        "Potenciômetro de 220KΩ com escala",
+        "90 a 240 VCA 60 Hz",
+        "40 A carga puramente resistiva",
+        "1043"
+      ],
+      [
+        "SSRE 80 01",
+        "4 a 32 VCC ou VCA 60 Hz",
+        "90 a 240 VCA 60 Hz",
+        "80 A carga puramente resistiva",
+        "1039"
+      ],
+      [
+        "SSRE 80 02",
+        "90 a 240 VCA 60 Hz",
+        "90 a 240 VCA 60 Hz",
+        "80 A carga puramente resistiva",
+        "1054"
+      ],
+      [
+        "VSSE 80 01",
+        "Potenciômetro de 220KΩ com escala",
+        "90 a 240 VCA 60 Hz",
+        "80 A carga puramente resistiva",
+        "1307"
+      ],
+      [
+        "SSRE 20CC 01",
+        "4 a 32 VCC ou VCA 60 Hz",
+        "5 a 100 VCC",
+        "20 A carga puramente resistiva",
+        "1038"
+      ],
+      [
+        "SSRE 20CC 02",
+        "90 a 240 VCA 60 Hz",
+        "5 a 100 VCC",
+        "20 A carga puramente resistiva",
+        "1055"
+      ]
+    ]
+  },
+  {
+    "slug": "TP_DIN01",
+    "titulo": "TP DIN01 – RELÉS TEMPORIZADORES PARA TRILHO DIN COM AJUSTE LOCAL",
+    "imagem": "tpdin01",
+    "indicacao": {
+      "titulo": "Indicação de uso:",
+      "descricao": "Circuitos de automação industrial em geral, que necessitem de temporização sem ajuste frequente do tempo (dentro do painel). Modelos padronizados com gabinete injetado em material termoplástico ABS V0 auto extinguível, 35 mm de largura, 59 mm de altura, para fixação sobre trilho padrão DIN 35 mm."
+    },
+    "manualTitulo": "Veja abaixo o manual do Relé de Estado Sólido Eletrodinâmica (SSR E) e o manual do Controle por ângulo de fase (DIMMER):",
+    "manualPdfKey": "manualTPDIN01",
+    "manualPdfTitulo": "Manual TP DIN01",
+    "especificacoes": [
+      [
+        "Modelo",
+        "Lógica de acionamento",
+        "Alimentação A1, A2",
+        "Ajuste do tempo",
+        "Escala de tempo",
+        "Contatos de saída",
+        "Tensão e corrente máxima aceitável nos contatos de saída",
+        "Código"
+      ],
+      [
+        "TP DIN01-220-1R-10",
+        "Retardo na energização (configuração de fábrica) ou pulso na energização, selecionável por jumper interno.",
+        "220 VCA 60 Hz Variação máxima de 10% para + ou -.",
+        "1 Trimpot rotativo local (no frontal do aparelho).",
+        "0 a 10 segundos.",
+        "1 contato reversível comum, NF e NA. (15, 16 e 18)",
+        "Tensão: 250 VCA 60 Hz, Corrente: 1A para cargas indutivas (bobinas de contactoras, válvulas e transformadores de comando). Corrente de 3A para cargas resistivas.",
+        "2018"
+      ],
+      [
+        "TP DIN01-220-2R-10",
+        "Retardo na energização (configuração de fábrica) ou pulso na energização, selecionável por jumper interno.",
+        "220 VCA 60 Hz Variação máxima de 10% para + ou -.",
+        "1 Trimpot rotativo local (no frontal do aparelho).",
+        "0 a 10 segundos.",
+        "2 contatos reversíveis comum, NF e NA. (15, 16 e 18 / 25, 26 e 28)",
+        "Tensão: 250 VCA 60 Hz, Corrente: 1A para cargas indutivas (bobinas de contactoras, válvulas e transformadores de comando). Corrente de 3A para cargas resistivas.",
+        "2083"
+      ]
+    ]
+  },
+  {
+    "slug": "TP_DIN02",
+    "titulo": "TP DIN02 – RELÉS TEMPORIZADORES PARA TRILHO DIN COM AJUSTE EXTERNO",
+    "imagem": "tpdin02",
+    "indicacao": {
+      "titulo": "Indicação de uso:",
+      "descricao": "Circuitos de automação industrial em geral, que necessitem de temporização com ajuste frequente do tempo (no frontal do painel, ao alcance do operador). Modelos padronizados com gabinete injetado em material termoplástico ABS V0 auto extinguível, 35 mm de largura, 59 mm de altura, para fixação sobre trilho padrão DIN 35 mm."
+    },
+    "especificacoes": [
+      [
+        "Modelo",
+        "Lógica de acionamento",
+        "Alimentação A1, A2",
+        "Ajuste do tempo",
+        "Escala de tempo",
+        "Contatos de saída",
+        "Código"
+      ],
+      [
+        "TP DIN02-220-1R-10",
+        "Retardo na energização (configuração de fábrica) ou pulso na energização, selecionável por jumper interno.",
+        "220 VCA 60 Hz\nVariação máxima de 10% para + ou -.",
+        "Potenciômetro linear de 220KΩ externo com 15 cm de fios, escala de policarbonato com fita dupla face no verso, com graduação de 0 a 10, knob plástico.",
+        "0 a 10 segundos.",
+        "Tensão: 250 VCA 60 Hz,\nCorrente: 1A para cargas indutivas (bobinas de contactoras, válvulas e transformadores de comando). Corrente de 3A para cargas resistivas.",
+        "1988"
+      ],
+      [
+        "TP DIN02-220-2R-10",
+        "Retardo na energização (configuração de fábrica) ou pulso na energização, selecionável por jumper interno.",
+        "220 VCA 60 Hz\nVariação máxima de 10% para + ou -.",
+        "Potenciômetro linear de 220KΩ externo com 15 cm de fios, escala de policarbonato com fita dupla face no verso, com graduação de 0 a 10, knob plástico.",
+        "0 a 10 segundos.",
+        "Tensão: 250 VCA 60 Hz,\nCorrente: 1A para cargas indutivas (bobinas de contactoras, válvulas e transformadores de comando). Corrente de 3A para cargas resistivas.",
+        "1988"
+      ]
+    ]
+  },
+  {
+    "slug": "TP_DIN03",
+    "titulo": "TP DIN03 – RELÉS TEMPORIZADORES PARA TRILHO DIN, CÍCLICOS",
+    "imagem": "tpdin03",
+    "indicacao": {
+      "titulo": "Indicação de uso:",
+      "descricao": "ircuitos de automação industrial em geral, que necessitem de temporização sem ajuste frequente do tempo (dentro do painel). Modelos padronizados com gabinete injetado em material termoplástico ABS V0 auto extinguível, 35 mm de largura, 59 mm de altura, para fixação sobre trilho padrão DIN 35 mm."
+    },
+    "especificacoes": [
+      [
+        "Modelo",
+        "Descrição",
+        "Alimentação A1, A2",
+        "Ajuste do tempo",
+        "Escala de tempo",
+        "Contatos de saída",
+        "Tensão e corrente máxima aceitável nos contatos de saída",
+        "Código"
+      ],
+
+      [
+        "TP DIN03-24-2R-30.30",
+        "Relé 1: liga ao energizar, ajustável pelo trimpot 1.\nRelé 2: liga após transcorrer o tempo do relé 1, ajustável pelo trimpot 2.\nCiclo infinito enquanto houver alimentação.",
+        "24 VCC ou VCA 60 Hz.\nVariação máxima de 10% para + ou -.",
+        "2 Trimpots rotativos locais (no frontal do aparelho).",
+        "Relé 1: 0 a 30 segundos.\nRelé 2: 0 a 30 segundos.",
+        "2 contatos reversíveis comum, NF e NA. (15, 16 e 18 / 25, 26 e 28)",
+        "Tensão: 250 VCA 60 Hz,\nCorrente: 1A para cargas indutivas (bobinas de contactoras, válvulas e transformadores de comando).\nCorrente de 3A para cargas resistivas.",
+        "2097"
+      ],
+      [
+        "TP DIN03-24-2R-5.600 (Cíclico para purgador de compressores)",
+        "Relé 1: liga ao energizar, ajustável pelo trimpot 1.\nRelé 2: liga após transcorrer o tempo do relé 1, ajustável pelo trimpot 2.\nCiclo infinito enquanto houver alimentação.",
+        "220 VCA 60 Hz\nVariação máxima de 10% para + ou -.",
+        "2 Trimpots rotativos locais (no frontal do aparelho).",
+        "Relé 1: 0 a 5 segundos.\nRelé 2: 0 a 600 segundos (10 minutos).",
+        "2 contatos reversíveis comum, NF e NA. (15, 16 e 18 / 25, 26 e 28)",
+        "Tensão: 250 VCA 60 Hz,\nCorrente: 1A para cargas indutivas (bobinas de contactoras, válvulas e transformadores de comando).\nCorrente de 3A para cargas resistivas.",
+        "1021"
+      ]
+    ]
+  },
+  {
+    "slug": "TP_DIN04",
+    "titulo": "TP DIN04 – RELÉS TEMPORIZADORES PARA TRILHO DIN, PARA CHAVES DE PARTIDA ESTRELA-TRIÂNGULO",
+    "imagem": "tpdin04",
+    "indicacao": {
+      "titulo": "Indicação de uso:",
+      "descricao": "Chaves de partida estrela-triângulo automáticas eletromecânicas (com contactoras); circuitos de temporização em geral. Modelos padronizados com gabinete injetado em material termoplástico ABS V0 auto extinguível, 35 mm de largura, 59 mm de altura, para fixação sobre trilho padrão DIN 35 mm."
+    },
+    "especificacoes": [
+      [
+        "Modelo",
+        "Lógica de acionamento",
+        "Alimentação A1, A2",
+        "Ajuste do tempo",
+        "Escala de tempo",
+        "Contatos de saída",
+        "Tensão e corrente máxima aceitável nos contatos de saída",
+        "Código"
+      ],
+      [
+        "TP DIN04-220-2R-30",
+        "Relé 1: Pulso na energização, ajustável pelo trimpot. Tempo morto (nenhum relé acionado) de 50 ms.\nRelé 2: Retardo na energização.",
+        "220 VCA 60 Hz\nVariação máxima de 10% para + ou -.",
+        "1 Trimpot rotativo local (no frontal do aparelho).",
+        "0 a 30 segundos.",
+        "2 contatos reversíveis comum, NF e NA. (15, 16 e 18 / 25, 26 e 28)",
+        "Tensão: 250 VCA 60 Hz,\nCorrente: 1A para cargas indutivas (bobinas de contactoras, válvulas e transformadores de comando).\nCorrente de 3A para cargas resistivas.",
+        "2019"
+      ]
+    ]
+  }
+]
