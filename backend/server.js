@@ -8,14 +8,13 @@ sequelize
   .authenticate()
   .then(() => {
     console.log("Conexão com o banco de dados estabelecida.");
-    return sequelize.sync({ force: true }); // ⚠️ Limpando tudo!
+    return sequelize.sync(); // Pode ser alterado depois com { force: true }
   })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);
     });
   })
-
   .catch((err) => {
     console.error("Erro ao conectar no banco:", err);
   });

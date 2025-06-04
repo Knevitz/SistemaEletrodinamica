@@ -11,22 +11,33 @@ const gerarToken = (usuario) => {
 };
 
 exports.registrar = async (req, res) => {
-  const { nome, cnpj, senha } = req.body;
+  const { nome, cnpj, senha, email } = req.body;
+
+  if (!nome || !cnpj || !senha || !email) {
+    console.log("Campos obrigatórios ausentes no registro");
+    return res
+      .status(400)
+      .json({ erro: "Preencha todos os campos obrigatórios." });
+  }
 
   try {
-    let tipo = "cliente";
+    let tipo;
 
-    // Impedir múltiplos admins
     if (cnpj === process.env.ADMIN_CNPJ) {
+      console.log("Tentando registrar admin com CNPJ:", cnpj);
+
       const adminExistente = await Usuario.findOne({
         where: { cnpj, tipo: "admin" },
       });
       if (adminExistente) {
+        console.log("Admin já existe para este CNPJ:", cnpj);
         return res
           .status(400)
           .json({ erro: "Conta de administrador já existe." });
       }
       tipo = "admin";
+    } else {
+      tipo = "cliente";
     }
 
     const hash = await bcrypt.hash(senha, 10);
@@ -34,12 +45,22 @@ exports.registrar = async (req, res) => {
     const novoUsuario = await Usuario.create({
       nome,
       cnpj,
+      email,
       senha: hash,
       tipo,
     });
 
+    const token = gerarToken(novoUsuario);
+
+    console.log("Usuário registrado com sucesso:", {
+      id: novoUsuario.id,
+      nome: novoUsuario.nome,
+      tipo: novoUsuario.tipo,
+    });
+
     res.status(201).json({
       mensagem: "Usuário registrado com sucesso.",
+      token,
       usuario: {
         id: novoUsuario.id,
         nome: novoUsuario.nome,
@@ -48,6 +69,7 @@ exports.registrar = async (req, res) => {
       },
     });
   } catch (erro) {
+    console.error("Erro ao registrar usuário:", erro);
     res.status(500).json({ erro: "Erro ao registrar usuário." });
   }
 };
@@ -59,16 +81,19 @@ exports.login = async (req, res) => {
     const usuario = await Usuario.findOne({ where: { cnpj } });
 
     if (!usuario) {
+      console.log("Login falhou: CNPJ não encontrado:", cnpj);
       return res.status(401).json({ erro: "CNPJ não encontrado." });
     }
 
     const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
     if (!senhaValida) {
+      console.log("Senha incorreta para CNPJ", cnpj);
       return res.status(401).json({ erro: "Senha incorreta." });
     }
 
     const token = gerarToken(usuario);
+    console.log("Login bem-sucedido:", usuario.nome);
 
     res.status(200).json({
       mensagem: "Login realizado com sucesso.",
@@ -80,15 +105,18 @@ exports.login = async (req, res) => {
       },
     });
   } catch (erro) {
+    console.error("Erro no login:", erro);
     res.status(500).json({ erro: "Erro no login." });
   }
 };
 
 exports.verificarToken = (req, res) => {
+  console.log("Token verificado com sucesso para o usuário", req.usuario?.id);
   res.status(200).json({ mensagem: "Token válido." });
 };
 
 exports.protegido = (req, res) => {
+  console.log("Acesso à rota protegida autorizado", req.usuario);
   res.status(200).json({
     mensagem: "Acesso autorizado à rota protegida.",
     usuario: req.usuario,
