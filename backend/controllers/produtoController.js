@@ -5,8 +5,11 @@ const fs = require("fs");
 // Criar produto
 exports.criarProduto = async (req, res) => {
   const { nome, descricao } = req.body;
+  const imagem = req.files["imagem"]?.[0]?.filename || null;
+  const pdf = req.files["pdf"]?.[0]?.filename || null;
+
   try {
-    const novoProduto = await Produto.create({ nome, descricao });
+    const novoProduto = await Produto.create({ nome, descricao, imagem, pdf });
     res.status(201).json(novoProduto);
   } catch (erro) {
     res.status(500).json({ erro: "Erro ao criar produto." });

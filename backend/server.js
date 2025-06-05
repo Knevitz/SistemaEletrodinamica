@@ -8,7 +8,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log("Conexão com o banco de dados estabelecida.");
-    return sequelize.sync(); // Pode ser alterado depois com { force: true }
+    return sequelize.sync(); // { force: true }
   })
   .then(() => {
     app.listen(PORT, () => {
