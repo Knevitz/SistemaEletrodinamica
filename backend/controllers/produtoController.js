@@ -1,17 +1,34 @@
 const Produto = require("../models/Produto");
 const path = require("path");
 const fs = require("fs");
+const slugify = require("../utils/slugify");
+
+// Função auxiliar para deletar arquivos antigos
+const deletarArquivoSeExistir = (caminho) => {
+  if (fs.existsSync(caminho)) {
+    fs.unlinkSync(caminho);
+  }
+};
 
 // Criar produto
 exports.criarProduto = async (req, res) => {
-  const { nome, descricao } = req.body;
-  const imagem = req.files["imagem"]?.[0]?.filename || null;
-  const pdf = req.files["pdf"]?.[0]?.filename || null;
+  const { nome, descricao, categoriaId } = req.body;
+  const imagem = req.files?.imagem?.[0]?.filename || null;
+  const pdf = req.files?.pdf?.[0]?.filename || null;
+  const slug = slugify(nome);
 
   try {
-    const novoProduto = await Produto.create({ nome, descricao, imagem, pdf });
+    const novoProduto = await Produto.create({
+      nome,
+      descricao,
+      categoriaId,
+      imagem,
+      pdf,
+      slug,
+    });
     res.status(201).json(novoProduto);
   } catch (erro) {
+    console.error("Erro ao criar produto:", erro);
     res.status(500).json({ erro: "Erro ao criar produto." });
   }
 };
@@ -19,7 +36,7 @@ exports.criarProduto = async (req, res) => {
 // Atualizar produto
 exports.atualizarProduto = async (req, res) => {
   const { id } = req.params;
-  const { nome, descricao, ativo } = req.body;
+  const { nome, descricao, ativo, categoriaId } = req.body;
 
   try {
     const produto = await Produto.findByPk(id);
@@ -27,14 +44,50 @@ exports.atualizarProduto = async (req, res) => {
       return res.status(404).json({ erro: "Produto não encontrado." });
     }
 
-    produto.nome = nome || produto.nome;
-    produto.descricao = descricao || produto.descricao;
+    // Atualizar imagem
+    if (req.files?.imagem?.[0]) {
+      if (produto.imagem) {
+        deletarArquivoSeExistir(
+          path.join(__dirname, "..", "uploads", produto.imagem)
+        );
+      }
+      produto.imagem = req.files.imagem[0].filename;
+    }
+
+    // Atualizar PDF
+    if (req.files?.pdf?.[0]) {
+      if (produto.pdf) {
+        deletarArquivoSeExistir(
+          path.join(__dirname, "..", "uploads", produto.pdf)
+        );
+      }
+      produto.pdf = req.files.pdf[0].filename;
+    }
+
+    // Atualizar dados textuais
+    if (nome && nome !== produto.nome) {
+      produto.nome = nome;
+      produto.slug = slugify(nome);
+    }
+    // Atualize a categoria se foi enviada
+    if (categoriaId !== undefined) {
+      produto.categoriaId = categoriaId;
+    }
+
+    produto.descricao = descricao ?? produto.descricao;
     produto.ativo = ativo !== undefined ? ativo : produto.ativo;
 
     await produto.save();
     res.status(200).json(produto);
   } catch (erro) {
-    res.status(500).json({ erro: "Erro ao atualizar produto." });
+    console.error("Erro ao atualizar produto:", erro);
+    res
+      .status(500)
+      .json({
+        erro: "Erro ao atualizar produto.",
+        erro: "Erro ao atualizar produto.",
+        detalhes: erro.message,
+      });
   }
 };
 
@@ -48,20 +101,22 @@ exports.excluirProduto = async (req, res) => {
       return res.status(404).json({ erro: "Produto não encontrado." });
     }
 
-    // Remover arquivos associados (imagem e pdf)
+    // Remover arquivos se existirem
     if (produto.imagem) {
-      fs.unlink(
-        path.join(__dirname, "..", "uploads", produto.imagem),
-        () => {}
+      deletarArquivoSeExistir(
+        path.join(__dirname, "..", "uploads", produto.imagem)
       );
     }
     if (produto.pdf) {
-      fs.unlink(path.join(__dirname, "..", "uploads", produto.pdf), () => {});
+      deletarArquivoSeExistir(
+        path.join(__dirname, "..", "uploads", produto.pdf)
+      );
     }
 
     await produto.destroy();
     res.status(200).json({ mensagem: "Produto excluído com sucesso." });
   } catch (erro) {
+    console.error("Erro ao excluir produto:", erro);
     res.status(500).json({ erro: "Erro ao excluir produto." });
   }
 };
@@ -74,6 +129,7 @@ exports.listarProdutosAtivos = async (req, res) => {
     });
     res.status(200).json(produtos);
   } catch (erro) {
+    console.error("Erro ao listar produtos ativos:", erro);
     res.status(500).json({ erro: "Erro ao buscar produtos." });
   }
 };

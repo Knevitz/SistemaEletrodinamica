@@ -44,3 +44,21 @@ exports.adminExcluirUsuario = async (req, res) => {
     res.status(500).json({ erro: "Erro ao excluir usuário." });
   }
 };
+
+exports.listarUsuarios = async (req, res) => {
+  try {
+    // Apenas admin pode acessar essa rota
+    if (req.usuario.tipo !== "admin") {
+      return res.status(403).json({ erro: "Acesso não autorizado." });
+    }
+
+    const usuarios = await Usuario.findAll({
+      attributes: ["id", "nome", "email", "cnpj", "tipo", "createdAt"],
+    });
+
+    res.status(200).json(usuarios);
+  } catch (erro) {
+    console.error("Erro ao listar usuários:", erro);
+    res.status(500).json({ erro: "Erro interno ao listar usuários." });
+  }
+};

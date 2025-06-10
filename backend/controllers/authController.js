@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Usuario = require("../models/Usuario");
+const { UniqueConstraintError } = require("sequelize");
 
 const gerarToken = (usuario) => {
   return jwt.sign(
@@ -23,18 +24,20 @@ exports.registrar = async (req, res) => {
   try {
     let tipo;
 
-    if (cnpj === process.env.ADMIN_CNPJ) {
-      console.log("Tentando registrar admin com CNPJ:", cnpj);
-
+    const cnpjLimpo = cnpj.trim();
+    if (cnpjLimpo === process.env.ADMIN_CNPJ) {
+      // Verifica se já existe um admin com esse CNPJ
       const adminExistente = await Usuario.findOne({
-        where: { cnpj, tipo: "admin" },
+        where: { cnpj: cnpjLimpo, tipo: "admin" },
       });
+
       if (adminExistente) {
-        console.log("Admin já existe para este CNPJ:", cnpj);
+        console.log("Admin já existe para este CNPJ:", cnpjLimpo);
         return res
           .status(400)
           .json({ erro: "Conta de administrador já existe." });
       }
+
       tipo = "admin";
     } else {
       tipo = "cliente";
@@ -50,8 +53,6 @@ exports.registrar = async (req, res) => {
       tipo,
     });
 
-    const token = gerarToken(novoUsuario);
-
     console.log("Usuário registrado com sucesso:", {
       id: novoUsuario.id,
       nome: novoUsuario.nome,
@@ -60,7 +61,6 @@ exports.registrar = async (req, res) => {
 
     res.status(201).json({
       mensagem: "Usuário registrado com sucesso.",
-      token,
       usuario: {
         id: novoUsuario.id,
         nome: novoUsuario.nome,
@@ -69,6 +69,10 @@ exports.registrar = async (req, res) => {
       },
     });
   } catch (erro) {
+    if (erro instanceof UniqueConstraintError) {
+      console.error("Erro de unicidade: CNPJ ou email já existe");
+      return res.status(400).json({ erro: "CNPJ ou email já está em uso" });
+    }
     console.error("Erro ao registrar usuário:", erro);
     res.status(500).json({ erro: "Erro ao registrar usuário." });
   }
@@ -82,7 +86,9 @@ exports.login = async (req, res) => {
 
     if (!usuario) {
       console.log("Login falhou: CNPJ não encontrado:", cnpj);
-      return res.status(401).json({ erro: "CNPJ não encontrado." });
+      return res.status(401).json({
+        erro: "CNPJ não encontrado.",
+      });
     }
 
     const senhaValida = await bcrypt.compare(senha, usuario.senha);

@@ -1,12 +1,15 @@
 const sequelize = require("../config/database");
 const Usuario = require("./Usuario");
+const Categoria = require("./Categoria");
 const Produto = require("./Produto");
 
-// Se precisar, adicione associações aqui no futuro
-// Ex: Produto.belongsTo(Categoria)
+// Associações
+Categoria.hasMany(Produto, { foreignKey: "categoriaId", as: "produtos" });
+Produto.belongsTo(Categoria, { foreignKey: "categoriaId", as: "categoria" });
 
 module.exports = {
   sequelize,
   Usuario,
+  Categoria,
   Produto,
 };

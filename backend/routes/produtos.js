@@ -16,6 +16,7 @@ router.put(
   "/:id",
   authMiddleware.autenticarToken,
   authMiddleware.apenasAdmin,
+  upload.fields([{ name: "imagem" }, { name: "pdf" }]),
   produtoController.atualizarProduto
 );
 router.delete(

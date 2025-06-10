@@ -6,6 +6,9 @@ const {
 } = require("../middleware/authMiddleware");
 const usuarioController = require("../controllers/usuarioController");
 
+// Listar todos os usuários (apenas admin)
+router.get("/", autenticarToken, apenasAdmin, usuarioController.listarUsuarios);
+
 // Cliente exclui a própria conta
 router.delete("/me", autenticarToken, usuarioController.excluirProprioUsuario);
 

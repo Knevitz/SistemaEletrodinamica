@@ -1,10 +1,16 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
+const Categoria = require("./Categoria");
 
 const Produto = sequelize.define("Produto", {
   nome: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  slug: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
   },
   descricao: {
     type: DataTypes.TEXT,
@@ -21,6 +27,14 @@ const Produto = sequelize.define("Produto", {
   ativo: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
+  },
+  categoriaId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Categoria,
+      key: "id",
+    },
   },
 });
 

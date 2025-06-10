@@ -4,21 +4,22 @@ const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const sequelize = require("./config/database");
+
 const produtoRoutes = require("./routes/produtos");
+const categoriaRoutes = require("./routes/categoria");
 const usuarioRoutes = require("./routes/usuarios");
 const authRoutes = require("./routes/auth");
 
 const app = express();
 
 // Middlewares globais
+
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
-app.use("/usuarios", usuarioRoutes);
-app.use("/api/produtos", produtoRoutes);
 
-// Rate limiting contra ataques DDoS
+// Rate limiting (antes das rotas)
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -26,9 +27,12 @@ app.use(
   })
 );
 
-// Rotas
+// Rotas - padronizadas com /api
+app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/produtos", produtoRoutes);
+app.use("/api/categorias", categoriaRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/produtos", produtoRoutes);
+
 app.get("/", (req, res) => {
   res.send("API da Eletrodinâmica está rodando");
 });
