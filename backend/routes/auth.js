@@ -10,6 +10,8 @@ router.post("/registrar", authController.registrar);
 router.post("/login", authController.login);
 router.get("/verificar-token", authController.verificarToken);
 router.get("/protegido", autenticarToken, authController.protegido);
+router.post("/recuperar-senha", authController.recuperarSenha);
+router.post("/redefinir-senha", authController.redefinirSenha);
 
 router.get("/admin", autenticarToken, apenasAdmin, (req, res) => {
   res.status(200).json({ mensagem: "Bem-vindo, administrador!" });

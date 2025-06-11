@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Usuario = require("../models/Usuario");
+const nodemailer = require("nodemailer");
 const { UniqueConstraintError } = require("sequelize");
 
 const gerarToken = (usuario) => {
@@ -11,7 +12,7 @@ const gerarToken = (usuario) => {
   );
 };
 
-exports.registrar = async (req, res) => {
+const registrar = async (req, res) => {
   const { nome, cnpj, senha, email } = req.body;
 
   if (!nome || !cnpj || !senha || !email) {
@@ -26,7 +27,6 @@ exports.registrar = async (req, res) => {
 
     const cnpjLimpo = cnpj.trim();
     if (cnpjLimpo === process.env.ADMIN_CNPJ) {
-      // Verifica se já existe um admin com esse CNPJ
       const adminExistente = await Usuario.findOne({
         where: { cnpj: cnpjLimpo, tipo: "admin" },
       });
@@ -78,7 +78,7 @@ exports.registrar = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
   const { cnpj, senha } = req.body;
 
   try {
@@ -86,9 +86,7 @@ exports.login = async (req, res) => {
 
     if (!usuario) {
       console.log("Login falhou: CNPJ não encontrado:", cnpj);
-      return res.status(401).json({
-        erro: "CNPJ não encontrado.",
-      });
+      return res.status(401).json({ erro: "CNPJ não encontrado." });
     }
 
     const senhaValida = await bcrypt.compare(senha, usuario.senha);
@@ -116,15 +114,101 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.verificarToken = (req, res) => {
+const verificarToken = (req, res) => {
   console.log("Token verificado com sucesso para o usuário", req.usuario?.id);
   res.status(200).json({ mensagem: "Token válido." });
 };
 
-exports.protegido = (req, res) => {
+const protegido = (req, res) => {
   console.log("Acesso à rota protegida autorizado", req.usuario);
   res.status(200).json({
     mensagem: "Acesso autorizado à rota protegida.",
     usuario: req.usuario,
   });
 };
+
+const recuperarSenha = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const usuario = await Usuario.findOne({ where: { email } });
+
+    if (!usuario) {
+      return res.status(404).json({ mensagem: "Usuário não encontrado." });
+    }
+
+    const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_REDEFINIR_SENHA,
+    });
+
+    const link = `${process.env.FRONTEND_URL}/redefinir-senha?token=${token}`;
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_FROM,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"Eletrodinâmica" <${process.env.EMAIL_FROM}>`,
+      to: usuario.email,
+      subject: "Recuperação de Senha",
+      html: `
+        <p>Olá, ${usuario.nome}!</p>
+        <p>Você solicitou a redefinição de sua senha. Clique no link abaixo para continuar:</p>
+        <a href="${link}">${link}</a>
+        <p>Este link expira em 30 minutos.</p>
+      `,
+    });
+
+    return res.json({ mensagem: "E-mail de recuperação enviado com sucesso." });
+  } catch (erro) {
+    console.error(erro);
+    return res
+      .status(500)
+      .json({ mensagem: "Erro ao tentar recuperar a senha." });
+  }
+};
+
+const redefinirSenha = async (req, res) => {
+  const { token, novaSenha } = req.body;
+
+  if (!token || !novaSenha) {
+    return res
+      .status(400)
+      .json({ mensagem: "Token e nova senha são obrigatórios." });
+  }
+
+  try {
+    // Verifica e decodifica o token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const usuarioId = decoded.id;
+
+    // Verifica se o usuário ainda existe
+    const usuario = await Usuario.findByPk(usuarioId);
+    if (!usuario) {
+      return res.status(404).json({ mensagem: "Usuário não encontrado." });
+    }
+
+    // Criptografa a nova senha
+    const senhaCriptografada = await bcrypt.hash(novaSenha, 10);
+
+    // Atualiza a senha no banco
+    usuario.senha = senhaCriptografada;
+    await usuario.save();
+
+    return res.json({ mensagem: "Senha redefinida com sucesso." });
+  } catch (erro) {
+    console.error(erro);
+    return res.status(400).json({ mensagem: "Token inválido ou expirado." });
+  }
+};
+// Exports organizados
+exports.registrar = registrar;
+exports.login = login;
+exports.verificarToken = verificarToken;
+exports.protegido = protegido;
+exports.recuperarSenha = recuperarSenha;
+exports.redefinirSenha = redefinirSenha;
